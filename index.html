@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engeli & Marti Forstunternehmung AG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest:      #1c3324;
+      --forest-mid:  #2d5040;
+      --forest-light:#4a7c5f;
+      --cream:       #f5f0e8;
+      --warm-white:  #faf8f4;
+      --bark:        #7a5c3e;
+      --text:        #1a2420;
+      --muted:       #6b7b72;
+      --border:      #d4ccc0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--forest);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .nav-logo {
+      height: 44px;
+      width: auto;
+      cursor: pointer;
+      display: block;
+      object-fit: contain;
+    }
+    .nav-holz {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.85;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(245,240,232,0.75);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--cream); }
+    .nav-links a.active { border-bottom: 1px solid var(--forest-light); padding-bottom: 2px; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); transition: all 0.25s; }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: var(--forest);
+      z-index: 99;
+      padding: 1.5rem 3rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      text-decoration: none;
+      color: rgba(245,240,232,0.8);
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── PAGES ── */
+    .page { display: none; padding-top: 64px; }
+    .page.active { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 5rem 3rem 4rem;
+      position: relative;
+      background: var(--forest);
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+      opacity: 1;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(to right, rgba(10,26,16,0.82) 0%, rgba(10,26,16,0.45) 60%, rgba(10,26,16,0.2) 100%),
+        linear-gradient(to top, rgba(10,26,16,0.5) 0%, transparent 50%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--forest-light);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.05;
+      margin-bottom: 1.8rem;
+      letter-spacing: -0.01em;
+    }
+    .hero h1 em { font-style: italic; color: rgba(245,240,232,0.65); }
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(245,240,232,0.7);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: var(--forest-light);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: background 0.25s, transform 0.15s;
+    }
+    .btn:hover { background: var(--bark); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(245,240,232,0.35);
+      color: var(--cream);
+      margin-left: 1rem;
+    }
+    .btn-outline:hover { background: rgba(245,240,232,0.08); transform: translateY(-1px); }
+
+    /* ── HOME INFO BLOCKS ── */
+    .home-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--cream);
+    }
+    .info-block {
+      padding: 3.5rem 3rem;
+      border-right: 1px solid var(--border);
+    }
+    .info-block:last-child { border-right: none; }
+    .info-block .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--forest-light);
+      margin-bottom: 0.8rem;
+    }
+    .info-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 0.6rem;
+    }
+    .info-block p { font-size: 0.88rem; line-height: 1.65; color: var(--muted); }
+
+    /* ── GALLERY GRID ── */
+    .gallery-section {
+      padding: 0;
+      background: var(--forest);
+    }
+    .gallery-label {
+      padding: 3rem 3rem 1.5rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.45);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: 220px 220px;
+      gap: 3px;
+    }
+    .gallery-grid .g-item {
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-grid .g-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.4s ease;
+      filter: brightness(0.85) saturate(0.9);
+    }
+    .gallery-grid .g-item:hover img { transform: scale(1.06); filter: brightness(1) saturate(1); }
+
+    /* Layout: row1: 2-wide, 1, 1, 1, 1 | row2: 1,1,1,1, 2-wide */
+    .gallery-grid .g-item:nth-child(1) { grid-column: span 2; }
+    .gallery-grid .g-item:nth-child(5) { grid-column: span 2; }
+
+    /* ── FUHRPARK BANNER ── */
+    .fuhrpark-banner {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+    }
+    .fuhrpark-banner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+      display: block;
+    }
+    .fuhrpark-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(28,51,36,0.75) 0%, rgba(28,51,36,0.2) 60%);
+    }
+    .fuhrpark-text {
+      position: absolute;
+      bottom: 3rem; left: 3rem;
+      z-index: 1;
+    }
+    .fuhrpark-text .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--forest-light);
+      margin-bottom: 0.5rem;
+    }
+    .fuhrpark-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--cream);
+      font-weight: 600;
+    }
+    .fuhrpark-text p {
+      color: rgba(245,240,232,0.7);
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+      max-width: 380px;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      padding: 5rem 3rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--forest-light);
+      margin-bottom: 1rem;
+    }
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 600;
+      color: var(--forest);
+      line-height: 1.1;
+    }
+    .section-header p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 520px;
+      margin-top: 1rem;
+    }
+
+    /* ── TEAM ── */
+    .team-hero {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+    }
+    .team-hero img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+    .team-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(28,51,36,0.6) 0%, transparent 50%);
+    }
+
+    .team-section {
+      padding: 3rem 3rem 0;
+    }
+    .team-spacer { height: 80px; }
+
+    .team-section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--forest-light);
+      margin-bottom: 1.8rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.8rem;
+    }
+
+    .team-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .person-card {
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(28,51,36,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .person-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: var(--forest-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .person-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .person-img span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      color: rgba(245,240,232,0.35);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .person-info {
+      background: var(--forest);
+      padding: 1.2rem 1.4rem 1.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .person-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.2rem;
+    }
+    .person-role {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--forest-light);
+      margin-bottom: 0.5rem;
+    }
+    .person-phone {
+      display: block;
+      font-size: 0.85rem;
+      color: rgba(245,240,232,0.6);
+      text-decoration: none;
+      margin-top: 0.5rem;
+      transition: color 0.2s;
+    }
+    .person-phone:hover { color: var(--cream); }
+
+    /* ── SERVICES ── */
+    .services-list {
+      padding: 3rem 3rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 76px 3rem;
+    }
+
+    .service-card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(28,51,36,0.13);
+    }
+
+    .service-card-img {
+      height: 380px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .service-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .service-card:hover .service-card-img img { transform: scale(1.04); }
+
+    .service-card-info {
+      background: var(--forest);
+      padding: 2rem 2.5rem 2.2rem;
+      flex: 1;
+    }
+    .service-card-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .service-card-info p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: rgba(245,240,232,0.7);
+      font-weight: 300;
+    }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip {
+      background: var(--forest-mid);
+      padding: 4rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .contact-strip h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+    .contact-strip p { color: rgba(245,240,232,0.65); font-size: 0.9rem; margin-top: 0.4rem; }
+    .contact-details { text-align: right; }
+    .contact-details a {
+      display: block;
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.95rem;
+      line-height: 2;
+    }
+    .contact-details a:hover { color: rgba(245,240,232,0.75); }
+
+    /* ── KONTAKT ── */
+    .kontakt-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 0;
+      min-height: 560px;
+      border-top: 1px solid var(--border);
+    }
+    .kontakt-info {
+      padding: 4rem 3rem;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    .kontakt-block {}
+    .kontakt-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--forest-light);
+      margin-bottom: 0.5rem;
+    }
+    .kontakt-block p,
+    .kontakt-block a {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .kontakt-block a { color: var(--forest); }
+    .kontakt-block a:hover { color: var(--forest-light); }
+    .kontakt-block a span { font-size: 0.82rem; color: var(--muted); }
+
+    .kontakt-photos {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .kontakt-photo-main {
+      flex: 1;
+      overflow: hidden;
+      min-height: 340px;
+    }
+    .kontakt-photo-main img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .kontakt-photo-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      height: 200px;
+    }
+    .kontakt-photo-small {
+      overflow: hidden;
+    }
+    .kontakt-photo-small img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .kontakt-photo-small:hover img { transform: scale(1.05); }
+
+    /* ── LEGAL ── */
+    .legal-content { max-width: 700px; padding: 4rem 3rem; }
+    .legal-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--forest);
+      margin-top: 2.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .legal-content h3:first-child { margin-top: 0; }
+    .legal-content p { font-size: 0.9rem; line-height: 1.75; color: var(--muted); margin-bottom: 0.5rem; }
+    .legal-content a { color: var(--forest-light); text-decoration: none; }
+    .legal-content a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--forest);
+      color: rgba(245,240,232,0.55);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+    .footer-top {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    footer .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--cream);
+    }
+    footer a { color: rgba(245,240,232,0.55); text-decoration: none; cursor: pointer; }
+    footer a:hover { color: var(--cream); }
+    .footer-links { display: flex; gap: 2rem; align-items: center; }
+
+    .footer-certs {
+      padding: 1rem 3rem 1.5rem;
+    }
+    .footer-certs img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .footer-certs img:hover { opacity: 1; }
+
+    /* ── FADE IN ── */
+    .page.active .fade-in { animation: fadeUp 0.5s ease both; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in:nth-child(2) { animation-delay: 0.07s; }
+    .fade-in:nth-child(3) { animation-delay: 0.14s; }
+    .fade-in:nth-child(4) { animation-delay: 0.21s; }
+    .fade-in:nth-child(5) { animation-delay: 0.28s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { padding: 3rem 1.5rem; }
+      .hero h1 { font-size: 2.8rem; }
+      .btn-outline { margin-left: 0; margin-top: 0.8rem; display: block; width: fit-content; }
+
+      .home-info { grid-template-columns: 1fr; }
+      .info-block { border-right: none; border-bottom: 1px solid var(--border); }
+      .info-block:last-child { border-bottom: none; }
+
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 160px 160px;
+      }
+      .gallery-grid .g-item:nth-child(1),
+      .gallery-grid .g-item:nth-child(5) { grid-column: span 1; }
+
+      .fuhrpark-banner { height: 260px; }
+      .fuhrpark-text { bottom: 1.5rem; left: 1.5rem; }
+      .fuhrpark-text h3 { font-size: 1.6rem; }
+
+      .section-header { padding: 3rem 1.5rem 1.5rem; }
+      .team-grid { padding: 2.5rem 1.5rem; }
+      .team-section { padding: 2rem 1.5rem 0; }
+      .team-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .services-list { padding: 2rem 1.5rem 3rem; grid-template-columns: 1fr; gap: 48px; }
+      .service-card-img { height: 260px; }
+      .service-card-info { padding: 1.5rem; }
+      .service-card-info h3 { font-size: 1.5rem; }
+
+      .kontakt-layout { grid-template-columns: 1fr; }
+      .kontakt-info { padding: 2.5rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
+      .kontakt-photo-row { height: 140px; }
+      .legal-content { padding: 3rem 1.5rem; }
+
+      .contact-strip { flex-direction: column; align-items: flex-start; padding: 3rem 1.5rem; }
+      .contact-details { text-align: left; }
+
+      footer .footer-top { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
+      .footer-links { flex-direction: column; gap: 0.5rem; }
+      .footer-certs { padding: 1.2rem 1.5rem; flex-wrap: wrap; gap: 1rem; }
+
+      .gallery-label { padding: 2rem 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <img class="nav-logo" src="assets/logo/em-logo-transparent-180x102.png" alt="Engeli &amp; Marti" onclick="showPage('home')" />
+    <img class="nav-holz" src="assets/brand%20logos/Schweizer_Holz.gif" alt="Schweizer Holz" />
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('team')" id="nav-team">Team</a></li>
+    <li><a onclick="showPage('dienst')" id="nav-dienst">Dienstleistungen</a></li>
+    <li><a onclick="showPage('kontakt')" id="nav-kontakt">Kontakt</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="showPage('home');closeMenu()">Home</a>
+  <a onclick="showPage('team');closeMenu()">Team</a>
+  <a onclick="showPage('dienst');closeMenu()">Dienstleistungen</a>
+  <a onclick="showPage('kontakt');closeMenu()">Kontakt</a>
+</div>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <video class="hero-video" src="Film_Forst_kurz_Compressed.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <div class="hero-content fade-in">
+      <p class="hero-eyebrow">Forstunternehmung · Schweiz</p>
+      <h1>Engeli &amp; Marti<br /><em>Forstunternehmung AG</em></h1>
+      <p>Professionelle Forstwirtschaft mit Erfahrung und Leidenschaft. Wir betreuen Ihren Wald mit Sorgfalt und Fachkompetenz.</p>
+      <div>
+        <button class="btn" onclick="showPage('dienst')">Unsere Dienstleistungen</button>
+        <button class="btn btn-outline" onclick="document.getElementById('kontakt-home').scrollIntoView({behavior:'smooth'})">Kontakt</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="home-info">
+    <div class="info-block fade-in">
+      <p class="label">Unternehmen</p>
+      <h3>Engeli &amp; Marti AG</h3>
+      <p>Ihr zuverlässiger Partner für alle Belange rund um die Forstwirtschaft im Thurgau und der Region.</p>
+    </div>
+    <div class="info-block fade-in">
+      <p class="label">Standort</p>
+      <h3>Müllheim</h3>
+      <p>Langenharterstrasse 23<br />8555 Müllheim, Thurgau</p>
+    </div>
+    <div class="info-block fade-in">
+      <p class="label">Kontakt</p>
+      <h3>Direkt anfragen</h3>
+      <p>
+        <a href="tel:+41794313428" style="color:var(--forest-light);text-decoration:none;">+41 79 431 34 28</a><br />
+        <a href="mailto:engeli.marti@gmail.com" style="color:var(--forest-light);text-decoration:none;">engeli.marti@gmail.com</a><br />
+        <a href="https://www.engeli-marti.ch" style="color:var(--forest-light);text-decoration:none;">www.engeli-marti.ch</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- FUHRPARK BANNER -->
+  <div class="fuhrpark-banner">
+    <img src="assets/bilder/em-fuhrpark.jpg" alt="Unser Fuhrpark" />
+    <div class="fuhrpark-text">
+      <h3>Moderner Fuhrpark</h3>
+      <p>Leistungsfähige Maschinen für jeden Einsatz – von der Durchforstung bis zur Grossernte.</p>
+    </div>
+  </div>
+
+  <div class="contact-strip" id="kontakt-home">
+    <div>
+      <h2>Nehmen Sie Kontakt auf</h2>
+      <p>Wir freuen uns auf Ihre Anfrage.</p>
+    </div>
+    <div class="contact-details">
+      <a href="tel:+41794313428">+41 79 431 34 28</a>
+      <a href="mailto:engeli.marti@gmail.com">engeli.marti@gmail.com</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <span class="footer-brand">Engeli &amp; Marti Forstunternehmung AG</span>
+      <div class="footer-links">
+        <a onclick="showPage('impressum')">Impressum</a>
+        <a onclick="showPage('datenschutz')">Datenschutz</a>
+        <a href="https://v-t-f.ch" target="_blank" rel="noopener">Verband Thurgauer Forstpersonal</a>
+        <span>© 2026</span>
+      </div>
+    </div>
+    <div class="footer-certs">
+      <img src="assets/brand%20logos/Schweizer_Holz.gif" alt="Schweizer Holz" />
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════ TEAM ═══════════ -->
+<div class="page" id="page-team">
+
+  <!-- Unser Team -->
+  <div class="team-section">
+    <p class="team-section-label">Unser Team</p>
+    <div class="team-cards-grid">
+
+      <div class="person-card fade-in">
+        <div class="person-img"><span>AM</span></div>
+        <div class="person-info">
+          <h3>Andi Marti</h3>
+          <p class="person-role">Geschäftsführer</p>
+          <a href="tel:+41794313428" class="person-phone">+41 79 431 34 28</a>
+        </div>
+      </div>
+
+      <div class="person-card fade-in">
+        <div class="person-img"><span>UE</span></div>
+        <div class="person-info">
+          <h3>Urs Engeli</h3>
+          <p class="person-role">Geschäftsführer</p>
+          <span class="person-phone" style="visibility:hidden;">–</span>
+        </div>
+      </div>
+
+      <div class="person-card fade-in">
+        <div class="person-img"><span>–</span></div>
+        <div class="person-info">
+          <h3>Name folgt</h3>
+          <p class="person-role">Forstwart</p>
+          <span class="person-phone" style="visibility:hidden;">–</span>
+        </div>
+      </div>
+
+      <div class="person-card fade-in">
+        <div class="person-img"><span>–</span></div>
+        <div class="person-info">
+          <h3>Name folgt</h3>
+          <p class="person-role">Forstwart</p>
+          <span class="person-phone" style="visibility:hidden;">–</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="team-spacer"></div>
+
+  <div class="contact-strip">
+    <div>
+      <h2>Teil unseres Teams werden?</h2>
+      <p>Wir freuen uns über Bewerbungen und Anfragen.</p>
+    </div>
+    <div class="contact-details">
+      <a href="tel:+41794313428">+41 79 431 34 28</a>
+      <a href="mailto:engeli.marti@gmail.com">engeli.marti@gmail.com</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <span class="footer-brand">Engeli &amp; Marti Forstunternehmung AG</span>
+      <div class="footer-links">
+        <a onclick="showPage('impressum')">Impressum</a>
+        <a onclick="showPage('datenschutz')">Datenschutz</a>
+        <a href="https://v-t-f.ch" target="_blank" rel="noopener">Verband Thurgauer Forstpersonal</a>
+        <span>© 2026</span>
+      </div>
+    </div>
+    <div class="footer-certs">
+      <img src="assets/brand%20logos/Schweizer_Holz.gif" alt="Schweizer Holz" />
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════ DIENSTLEISTUNGEN ═══════════ -->
+<div class="page" id="page-dienst">
+
+  <div class="section-header fade-in">
+    <p class="eyebrow">Was wir anbieten</p>
+    <h2>Unsere Dienstleistungen</h2>
+    <p>Von der Holzernte bis zur Waldpflege – wir bieten ein umfassendes Angebot rund um die professionelle Forstwirtschaft.</p>
+  </div>
+
+  <div class="services-list">
+
+    <div class="service-card fade-in">
+      <div class="service-card-img">
+        <img src="assets/bilder/em-baum-geschnitten.jpg" alt="Baumpflege" />
+      </div>
+      <div class="service-card-info">
+        <h3>Baumpflege &amp; Fällungen</h3>
+        <p>Fachgerechte Baumpflege, Kronenpflege und Fällungen im Siedlungsraum. Wir arbeiten sicher, sauber und rücksichtsvoll – auch in schwierigem Gelände und in der Nähe von Gebäuden.</p>
+      </div>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-card-img">
+        <img src="assets/bilder/em-dienste-kettensäge.jpg" alt="Fällarbeiten mit Kettensäge" />
+      </div>
+      <div class="service-card-info">
+        <h3>Holzschlag &amp; Fällarbeiten</h3>
+        <p>Professioneller Holzschlag mit modernem Gerät und ausgebildetem Fachpersonal. Wir fällen sicher und schonend – ob Einzelbaum oder grossflächige Ernte.</p>
+      </div>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-card-img">
+        <img src="assets/bilder/em-forwarder-2.jpg" alt="Forwarder beim Holzrücken" />
+      </div>
+      <div class="service-card-info">
+        <h3>Holzrücken &amp; -transport</h3>
+        <p>Effizientes Rücken und Transportieren des geschlagenen Holzes mit geeigneten Maschinen und Fahrzeugen. Schonend für Boden und verbleibenden Baumbestand.</p>
+      </div>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-card-img">
+        <img src="assets/bilder/em-jungwald.jpg" alt="Jungwald Pflege" />
+      </div>
+      <div class="service-card-info">
+        <h3>Waldpflege &amp; Durchforstung</h3>
+        <p>Gezielte Pflegeeingriffe zur Förderung stabiler und gesunder Bestände. Durch fachkundige Durchforstung verbessern wir Wachstum und Qualität Ihres Waldes. Wir übernehmen auch das Pflanzen von Jungwald und unterstützen so die nachhaltige Waldverjüngung.</p>
+      </div>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-card-img">
+        <img src="assets/bilder/em-harvester-4.jpg" alt="Sturmschadenbehebung" />
+      </div>
+      <div class="service-card-info">
+        <h3>Sturmschaden- &amp; Schadholzaufarbeitung</h3>
+        <p>Schnelle und sichere Aufarbeitung von Sturm- und Schadholz. Wir reagieren rasch und minimieren Folgeschäden durch Käferbefall und Krankheiten.</p>
+      </div>
+    </div>
+
+    <div class="service-card fade-in">
+      <div class="service-card-img">
+        <img src="assets/bilder/em-dienste-brennholz.jpg" alt="Brennholz" />
+      </div>
+      <div class="service-card-info">
+        <h3>Brennholz</h3>
+        <p>Ofenfertiges Brennholz aus regionaler, nachhaltiger Forstwirtschaft. Preis und Verfügbarkeit auf Anfrage.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="contact-strip">
+    <div>
+      <h2>Offerte anfragen</h2>
+      <p>Kontaktieren Sie uns für ein unverbindliches Angebot.</p>
+    </div>
+    <div class="contact-details">
+      <a href="tel:+41794313428">+41 79 431 34 28</a>
+      <a href="mailto:engeli.marti@gmail.com">engeli.marti@gmail.com</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <span class="footer-brand">Engeli &amp; Marti Forstunternehmung AG</span>
+      <div class="footer-links">
+        <a onclick="showPage('impressum')">Impressum</a>
+        <a onclick="showPage('datenschutz')">Datenschutz</a>
+        <a href="https://v-t-f.ch" target="_blank" rel="noopener">Verband Thurgauer Forstpersonal</a>
+        <span>© 2026</span>
+      </div>
+    </div>
+    <div class="footer-certs">
+      <img src="assets/brand%20logos/Schweizer_Holz.gif" alt="Schweizer Holz" />
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════ KONTAKT ═══════════ -->
+<div class="page" id="page-kontakt">
+
+  <div class="section-header fade-in">
+    <p class="eyebrow">Sprechen Sie uns an</p>
+    <h2>Kontakt</h2>
+    <p>Wir freuen uns auf Ihre Anfrage — ob Offerte, Frage oder Auftrag.</p>
+  </div>
+
+  <!-- Contact details + photos -->
+  <div class="kontakt-layout">
+
+    <div class="kontakt-info fade-in">
+      <div class="kontakt-block">
+        <p class="kontakt-label">Adresse</p>
+        <p>Engeli &amp; Marti Forstunternehmung AG<br />Langenharterstrasse 23<br />8555 Müllheim</p>
+      </div>
+      <div class="kontakt-block">
+        <p class="kontakt-label">Telefon</p>
+        <a href="tel:+41794313428">+41 79 431 34 28<br /><span>Andi Marti</span></a>
+      </div>
+      <div class="kontakt-block">
+        <p class="kontakt-label">E-Mail</p>
+        <a href="mailto:engeli.marti@gmail.com">engeli.marti@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="kontakt-photos fade-in">
+      <div class="kontakt-photo-main">
+        <img src="assets/bilder/em-harvester-1.jpg" alt="Harvester im Einsatz" />
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <span class="footer-brand">Engeli &amp; Marti Forstunternehmung AG</span>
+      <div class="footer-links">
+        <a onclick="showPage('impressum')">Impressum</a>
+        <a onclick="showPage('datenschutz')">Datenschutz</a>
+        <a href="https://v-t-f.ch" target="_blank" rel="noopener">Verband Thurgauer Forstpersonal</a>
+        <span>© 2026</span>
+      </div>
+    </div>
+    <div class="footer-certs">
+      <img src="assets/brand%20logos/Schweizer_Holz.gif" alt="Schweizer Holz" />
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════ IMPRESSUM ═══════════ -->
+<div class="page" id="page-impressum">
+  <div class="section-header fade-in">
+    <p class="eyebrow">Rechtliches</p>
+    <h2>Impressum</h2>
+  </div>
+  <div class="legal-content fade-in">
+    <h3>Unternehmensangaben</h3>
+    <p><strong>Firmenname:</strong> Engeli &amp; Marti Forstunternehmung AG</p>
+    <p><strong>Rechtsform:</strong> Aktiengesellschaft (AG)</p>
+    <p><strong>Adresse:</strong> Langenharterstrasse 23, 8555 Müllheim</p>
+    <p><strong>Land:</strong> Schweiz</p>
+    <h3>Kontakt</h3>
+    <p><strong>E-Mail:</strong> <a href="mailto:engeli.marti@gmail.com">engeli.marti@gmail.com</a></p>
+    <p><strong>Website:</strong> <a href="https://www.engeli-marti.ch">www.engeli-marti.ch</a></p>
+    <h3>Handelsregister</h3>
+    <p>Die Gesellschaft ist im Handelsregister des Kantons Thurgau eingetragen.</p>
+    <h3>Verantwortlich für den Inhalt</h3>
+    <p>Engeli &amp; Marti Forstunternehmung AG<br />Langenharterstrasse 23<br />8555 Müllheim</p>
+    <h3>Haftungsausschluss</h3>
+    <p>Der Autor übernimmt keine Gewähr für die Richtigkeit, Genauigkeit, Aktualität, Zuverlässigkeit und Vollständigkeit der Informationen.</p>
+    <p>Haftungsansprüche gegen den Autor wegen Schäden materieller oder immaterieller Art, welche aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der veröffentlichten Informationen, durch Missbrauch der Verbindung oder durch technische Störungen entstanden sind, werden ausgeschlossen.</p>
+    <h3>Urheberrechte</h3>
+    <p>Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf der Website gehören ausschliesslich der Engeli &amp; Marti Forstunternehmung AG oder den speziell genannten Rechtsinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung des Urheberrechtsträgers im Voraus einzuholen.</p>
+  </div>
+  <footer>
+    <div class="footer-top">
+      <span class="footer-brand">Engeli &amp; Marti Forstunternehmung AG</span>
+      <div class="footer-links">
+        <a onclick="showPage('impressum')">Impressum</a>
+        <a onclick="showPage('datenschutz')">Datenschutz</a>
+        <a href="https://v-t-f.ch" target="_blank" rel="noopener">Verband Thurgauer Forstpersonal</a>
+        <span>© 2026</span>
+      </div>
+    </div>
+    <div class="footer-certs">
+      <img src="assets/brand%20logos/Schweizer_Holz.gif" alt="Schweizer Holz" />
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════ DATENSCHUTZ ═══════════ -->
+<div class="page" id="page-datenschutz">
+  <div class="section-header fade-in">
+    <p class="eyebrow">Rechtliches</p>
+    <h2>Datenschutzerklärung</h2>
+  </div>
+  <div class="legal-content fade-in">
+    <h3>Allgemeines</h3>
+    <p>Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten daher ausschliesslich auf Grundlage der gesetzlichen Bestimmungen des Schweizer Bundesgesetzes über den Datenschutz (DSG) sowie – soweit anwendbar – der Europäischen Datenschutz-Grundverordnung (DSGVO).</p>
+    <h3>Verantwortliche Stelle</h3>
+    <p>Engeli &amp; Marti Forstunternehmung AG<br />Langenharterstrasse 23<br />8555 Müllheim<br />E-Mail: <a href="mailto:engeli.marti@gmail.com">engeli.marti@gmail.com</a></p>
+    <h3>Erhebung und Verarbeitung von Daten</h3>
+    <p>Beim Besuch unserer Website werden automatisch Informationen allgemeiner Natur erfasst. Diese sogenannten Server-Logfiles enthalten unter anderem die Art des Webbrowsers, das verwendete Betriebssystem, den Domainnamen Ihres Internet Service Providers sowie ähnliche Angaben. Diese Daten sind nicht einer bestimmten Person zuordenbar und werden nicht mit anderen Datenquellen zusammengeführt.</p>
+    <h3>Kontaktdaten</h3>
+    <p>Wenn Sie uns per E-Mail kontaktieren, werden die von Ihnen übermittelten Daten ausschliesslich zur Bearbeitung Ihrer Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+    <h3>Cookies</h3>
+    <p>Diese Website verwendet keine Cookies.</p>
+    <h3>Ihre Rechte</h3>
+    <p>Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch zu. Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstösst oder Ihre datenschutzrechtlichen Ansprüche verletzt worden sind, wenden Sie sich bitte per E-Mail an uns oder an den zuständigen Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB).</p>
+    <h3>Änderungen dieser Datenschutzerklärung</h3>
+    <p>Wir behalten uns vor, diese Datenschutzerklärung gelegentlich anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht. Für Ihren erneuten Besuch gilt dann die jeweils aktualisierte Datenschutzerklärung.</p>
+    <h3>Stand</h3>
+    <p>April 2025</p>
+  </div>
+  <footer>
+    <div class="footer-top">
+      <span class="footer-brand">Engeli &amp; Marti Forstunternehmung AG</span>
+      <div class="footer-links">
+        <a onclick="showPage('impressum')">Impressum</a>
+        <a onclick="showPage('datenschutz')">Datenschutz</a>
+        <a href="https://v-t-f.ch" target="_blank" rel="noopener">Verband Thurgauer Forstpersonal</a>
+        <span>© 2026</span>
+      </div>
+    </div>
+    <div class="footer-certs">
+      <img src="assets/brand%20logos/Schweizer_Holz.gif" alt="Schweizer Holz" />
+    </div>
+  </footer>
+</div>
+
+<script>
+  const pages = ['home','team','dienst','kontakt','impressum','datenschutz'];
+  function showPage(id) {
+    pages.forEach(p => {
+      document.getElementById('page-' + p).classList.remove('active');
+      const nav = document.getElementById('nav-' + p);
+      if (nav) nav.classList.remove('active');
+    });
+    document.getElementById('page-' + id).classList.add('active');
+    const nav = document.getElementById('nav-' + id);
+    if (nav) nav.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+</script>
+</body>
+</html>
